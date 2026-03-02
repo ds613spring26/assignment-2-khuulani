@@ -250,8 +250,18 @@ records
    - `name`  
    - `hire_date`  
    - `dept
-   `
+```{r}   `
+split_records <- strsplit(records, " \\| ")
+parsed_records <- tibble(record = records) |>
+  separate(record,
+           into = c("name", "hire_date", "dept"),
+           sep = " \\| ") |>
+  mutate( name = str_trim(name),
+    hire_date = str_trim(hire_date),
+    dept = str_trim(dept))
 
+parsed_records
+```
 
 2. **Convert `hire_date` into a proper `Date` object**, correctly handling all of the different date formats.
 
