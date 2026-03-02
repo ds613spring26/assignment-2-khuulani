@@ -280,6 +280,14 @@ parsed_records
 
 3. **Convert `dept` into an ordered factor** with the levels:  
    `HR`, `FIN`, `IT`, `MKT`.
+```{r}
+parsed_records <- parsed_records |>
+  mutate(dept = factor( dept,
+      levels = c("HR", "FIN", "IT", "MKT"),
+      ordered = TRUE))
+
+parsed_records
+```
 
 4. **Construct a clean data frame** containing the parsed and converted variables.
 
