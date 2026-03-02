@@ -141,7 +141,48 @@ Write a second version of `pos_na()` that performs the same task **without** usi
   
 # Question 2
  Load the `wmata_ridership` data frame into R from <https://dcgerard.github.io/stat_412_612/data/wmata_ridership.csv>. For each month, calculate the proportion of rides made on a given day of the month. Then make box plots of the proport
+```{r}
+library(tidyverse)
+library(lubridate)
 
+ridership <- read_csv(
+  "https://dcgerard.github.io/stat_412_612/data/wmata_ridership.csv",
+  col_types = cols(.default = "c")
+)
+
+#clean
+ridership <- ridership |>
+  mutate(
+    Date  = as.Date(Date),
+    Total = as.numeric(gsub(",", "", Total)), 
+    year  = year(Date),
+    month = month(Date),
+    dow   = wday(Date, label = TRUE, week_start = 1))
+
+# remove 2004 and 2005
+ridership_filtered <- ridership |>
+  filter(!year %in% c(2004, 2005))
+
+# monthly totals
+monthly_totals <- ridership_filtered |>
+  group_by(year, month) |>
+  summarize(monthly_total = sum(Total, na.rm = TRUE), .groups = "drop")
+
+# daily proportions
+ridership_prop <- ridership_filtered |>
+  left_join(monthly_totals, by = c("year", "month")) %>%
+  mutate(prop = Total / monthly_total)
+
+ggplot(ridership_prop, aes(x = dow, y = prop)) +
+  geom_boxplot(fill = "hotpink", alpha = 0.7) +
+  labs(
+    title = "Ridership Proportions by Day of the Week",
+    x     = "Day of Week",
+    y     = "Daily proportion of monthly ridership"
+  ) +
+  theme_minimal()
+
+```
 # Question 3:
 Write R code that extracts the elements "Bears", "Dolphins", and "Bengals" from the vector `V` shown below, and display the result.
 ```{r}
