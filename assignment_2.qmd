@@ -291,6 +291,13 @@ parsed_records
 
 4. **Construct a clean data frame** containing the parsed and converted variables.
 
+```{r}
+clean_employees <- parsed_records |>
+  select(name, hire_date, dept)
+
+clean_employees
+```
+
 5. **Add a new variable** called `years_worked` that reports the number of full years each employee has worked as of today.
 
 6. **Return the final cleaned data frame.**
