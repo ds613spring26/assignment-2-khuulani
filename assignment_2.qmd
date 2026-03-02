@@ -309,4 +309,6 @@ clean_employees <- clean_employees |>
 
 6. **Return the final cleaned data frame.**
 
-
+```{r}
+clean_employees
+```
