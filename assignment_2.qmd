@@ -191,21 +191,42 @@ V <- c("Bears", "Lions", "Dolphins", "Eagles", "Bengals")
 
 
 ## (3i) Subsetting by index
-
+```{r}
+V[c(1, 3, 5)]
+```
 ## (3ii) Subsetting using a `for` loop
+```{r}
+indices <- c(1, 3, 5)
+result <- c()
 
+for (i in indices) {
+  result <- c(result, V[i])
+}
+
+result
+```
 
 ## (3iii)Returning all values in a single vector (one line of code)
-
-  
+```{r}
+V[c(1, 3, 5)]
+```
 ### (a) Using positive indices
-
+```{r}
+V[c(1, 3, 5)]
+```
 ### (b) Using negative indices
-
+```{r}
+V[-c(2, 4)]
+```
 ### (c) Using logical indexing
-
+```{r}
+V[c(TRUE, FALSE, TRUE, FALSE, TRUE)]
+```
 ### (d) Attempting to subset by names
-
+```{r}
+names(V) <- c("A", "B", "C", "D", "E")
+V[c("A", "C", "E")]
+```
 # Question 4:
 
 You are given a character vector containing messy employee records. Each entry includes:
