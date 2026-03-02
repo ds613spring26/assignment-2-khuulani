@@ -264,6 +264,19 @@ parsed_records
 ```
 
 2. **Convert `hire_date` into a proper `Date` object**, correctly handling all of the different date formats.
+```{r}
+library(lubridate)
+parsed_records <- parsed_records |>
+  mutate(
+    hire_date = coalesce(
+      ymd(hire_date, quiet = TRUE), 
+      dmy(hire_date, quiet = TRUE),       
+      mdy(hire_date, quiet = TRUE),     
+      ymd(str_replace_all(hire_date, "/", "-"), quiet = TRUE)))
+
+parsed_records
+
+```
 
 3. **Convert `dept` into an ordered factor** with the levels:  
    `HR`, `FIN`, `IT`, `MKT`.
