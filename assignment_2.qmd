@@ -300,6 +300,13 @@ clean_employees
 
 5. **Add a new variable** called `years_worked` that reports the number of full years each employee has worked as of today.
 
+
+```{r}
+clean_employees <- clean_employees |>
+  mutate(years_worked = interval(hire_date, today()) %/% years(1))
+
+```
+
 6. **Return the final cleaned data frame.**
 
 
